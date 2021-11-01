@@ -2,6 +2,7 @@ import React from 'react';
 import User from './components/User';
 import FollowerList from './components/FollowerList';
 import axios from 'axios';
+import './index.css';
 
 class App extends React.Component {
   constructor() {
@@ -44,17 +45,32 @@ class App extends React.Component {
   
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({
-      ...this.state,
-      searchUser: ""
-    });
+    axios.get(`https://api.github.com/users/${this.state.searchUser}`)
+      .then(response => {
+        console.log('response', response);
+        this.setState({
+          ...this.state,
+          userInfo: response.data
+        });
+      })
+      .catch(error => console.log('error', error));
+
+    axios.get(`https://api.github.com/users/${this.state.searchUser}/followers`)
+      .then(response => {
+        console.log('response', response);
+        this.setState({
+          ...this.state,
+          userFollowers: response.data
+        });
+      })
+      .catch(error => console.log('error', error));
   }
 
   render() {
     return (
-      <div>
+      <div className="app">
         <h1>GitHub Info</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form className="search-form" onSubmit={this.handleSubmit}>
           <input
             type="text"
             value={this.state.searchUser}

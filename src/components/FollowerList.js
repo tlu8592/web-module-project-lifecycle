@@ -5,9 +5,12 @@ class FollowerList extends React.Component {
     render() {
         return (
             <div className="follower-list">
-                {this.props.userFollowers.map(follower => {
-                    return <Follower key={follower.id} follower={follower} />
-                })}
+                <h2>Followers:</h2>
+                <div className="flex-container">
+                    {this.props.userFollowers.map(follower => {
+                        return <Follower key={follower.id} follower={follower} />
+                    })}
+                </div>
             </div>
         );
     }

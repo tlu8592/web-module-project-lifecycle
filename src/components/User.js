@@ -1,10 +1,6 @@
 import React from 'react';
 
 class User extends React.Component {
-    componentDidMount() {
-        console.log("User Component Mounted");
-    }
-    
     render() {
         return (
             <div className="user">
